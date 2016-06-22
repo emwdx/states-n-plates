@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>States 'n Plates</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+
+    <style>
+.stateContainer{
+    height:185px;
+}
+    </style>
+
+  </head>
+  <body>
+
+    <h1 class="text-center">States 'n Plates</h1>
+    <div id="container" class = "container">
+
+
+
+
+    </div>
+
+
+    <script src = "underscore/underscore-min.js"></script>
+    <script src="react/react.js"></script>
+    <script src="react/react-dom.js"></script>
+    <script src="react/browser.min.js"></script>
+
+    <script type="text/babel">
+
+    var states = ["Alabama","Arkansas","Arizona","Alaska","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","NewYork","NewHampshire","NorthCarolina","NewJersey","NewMexico","NorthDakota","Oklahoma","Ohio","Oregon","Pennsylvania","RhodeIsland","SouthDakota","SouthCarolina","Texas","Tennessee","Utah","Vermont","Virginia","WestVirginia","Wisconsin","Washington","Wyoming"];
+
+
+    var App = React.createClass({
+      getInitialState:function(){
+
+        return {stateList:_.shuffle(states)}
+
+      },
+      render: function () {
+
+        return (
+          <div>
+          {this.state.stateList.map(function(item,index){
+            return(
+          <StateView stateName={item} />
+        )
+          })}
+
+          </div>
+
+        );
+      },
+
+
+
+    });
+
+    var StateView = React.createClass({
+
+      getInitialState:function(){
+
+        var initialURL = "img/partial/"+this.props.stateName+"-partial.png";
+
+        return {showAnswers:false,hasGuessed:false,imageURL:initialURL}
+
+
+      },
+
+      render:function(){
+
+        return(
+
+          <div className = "col-md-4 stateContainer">
+            <div className = "row">
+            <div className = "col-md-4">
+            <h3></h3>
+            </div>
+            </div>
+            <div className = "row">
+            <div className = "col-md-12">
+            <img src = {this.state.imageURL} className="img-thumbnail" onClick={this.setImageURL}/>
+
+
+            </div>
+            </div>
+          </div>
+
+          )
+
+
+      },
+
+      setImageURL:function(){
+        console.log(this.state);
+        if(this.state.showAnswers){
+
+            this.setState({showAnswers:false,imageURL:("img/partial/"+this.props.stateName+"-partial.png")})
+        }
+        else{
+            this.setState({showAnswers:true,imageURL:("img/full/"+this.props.stateName+"-full.jpg")})
+
+
+
+        }
+
+
+      }
+
+
+    });
+
+
+
+
+
+      ReactDOM.render(
+        <App />,
+        document.getElementById('container')
+      );
+
+    </script>
+  </body>
+</html>
