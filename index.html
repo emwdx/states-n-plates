@@ -7,12 +7,13 @@
 
     <style>
 .stateImageContainer{
-    height:185px;
-    width:350px;
+    height:148px;
+    width:280px;
 }
 .stateContainer{
 
 margin:10px;
+border-bottom:black solid 2px;
 }
     </style>
 
@@ -41,13 +42,16 @@ margin:10px;
     stateNames.forEach(function(state){
       var stateLowerCase = state.toLowerCase().replace(/ /g,'');
       var imageURL = "img/partial/"+stateLowerCase+"-partial.png";
+      var choices = _.shuffle(_.union(_.sample(_.without(stateNames,state),4),[state]));
+
 
       var stateObject = {
       stateDisplayName:state,
       stateLowerCase:stateLowerCase,
       showAnswers:false,
       hasGuessed:false,
-      imageURL:imageURL
+      imageURL:imageURL,
+      choices:choices
 
 
       }
@@ -69,7 +73,7 @@ margin:10px;
         var slicedComponents = [];
         slicedList.map(function(item,index){
 
-        slicedComponents.push(<StateView key={index} stateObject={item} />)
+        slicedComponents.push(<StateView key={index} stateObject={item} stateIndex={'state'+index}/>)
 
 
       })
@@ -117,6 +121,7 @@ margin:10px;
             </div>
 
             <div className = "col-md-8 well">
+            <ChoiceView choices={this.props.stateObject.choices} choiceName={this.props.stateObject.stateDisplayName} stateIndex={this.props.stateIndex}/>
             </div>
 
 
@@ -187,6 +192,46 @@ margin:10px;
 
 
     });
+
+    var ChoiceView = React.createClass({
+
+      render:function(){
+        var choices = this.props.choices;
+        var choiceList = [];
+        var stateIndex = this.props.stateIndex;
+
+        choices.map(function(item,index){
+          var itemLowerCase = item.toLowerCase().replace(/ /g,'');
+        choiceList.push(
+
+          <label className="radio-inline">
+              <input type="radio" name={stateIndex} id={item} value={itemLowerCase} />
+            {item}
+          </label>
+
+
+        );
+
+
+      })
+
+      return (
+
+        <div className ="radio">
+
+        {choiceList}
+        </div>
+
+
+
+      )
+
+
+      }
+
+
+
+    })
 
 
 
