@@ -39,7 +39,7 @@ border-bottom:black solid 2px;
     var stateNames = ["Alabama","Arkansas","Arizona","Alaska","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New York","New Hampshire","North Carolina","New Jersey","New Mexico","North Dakota","Oklahoma","Ohio","Oregon","Pennsylvania","Rhode Island","South Dakota","South Carolina","Texas","Tennessee","Utah","Vermont","Virginia","West Virginia","Wisconsin","Washington","Wyoming"];
 
     var stateList = [];
-    stateNames.forEach(function(state){
+    stateNames.forEach(function(state,index){
       var stateLowerCase = state.toLowerCase().replace(/ /g,'');
       var imageURL = "img/partial/"+stateLowerCase+"-partial.png";
       var choices = _.shuffle(_.union(_.sample(_.without(stateNames,state),4),[state]));
@@ -51,8 +51,8 @@ border-bottom:black solid 2px;
       showAnswers:false,
       hasGuessed:false,
       imageURL:imageURL,
-      choices:choices
-
+      choices:choices,
+      stateIndex:index
 
       }
       stateList.push(stateObject);
@@ -73,7 +73,7 @@ border-bottom:black solid 2px;
         var slicedComponents = [];
         slicedList.map(function(item,index){
 
-        slicedComponents.push(<StateView key={index} stateObject={item} stateIndex={'state'+index}/>)
+        slicedComponents.push(<StateView key={index} stateObject={item} stateListIndex={index}  />)
 
 
       })
@@ -83,7 +83,7 @@ border-bottom:black solid 2px;
 
           <div>
 
-          <NavigationBar navState={this.state.navState} nextPage={this.nextPage} prevPage = {this.prevPage} currState={this.state}/>
+          <NavigationBar navState={this.state.navState} nextPage={this.nextPage} prevPage = {this.prevPage}/>
 
           {slicedComponents}
 
@@ -121,7 +121,7 @@ border-bottom:black solid 2px;
             </div>
 
             <div className = "col-md-8 well">
-            <ChoiceView choices={this.props.stateObject.choices} choiceName={this.props.stateObject.stateDisplayName} stateIndex={this.props.stateIndex}/>
+            <ChoiceView choices={this.props.stateObject.choices} choiceName={this.props.stateObject.stateDisplayName} stateIndex={this.props.stateIndex} />
             </div>
 
 
@@ -203,12 +203,12 @@ border-bottom:black solid 2px;
         choices.map(function(item,index){
           var itemLowerCase = item.toLowerCase().replace(/ /g,'');
         choiceList.push(
-
+          <div className = "col-md-2 text-center" key={index}>
           <label className="radio-inline">
               <input type="radio" name={stateIndex} id={item} value={itemLowerCase} />
             {item}
           </label>
-
+          </div>
 
         );
 
@@ -217,7 +217,7 @@ border-bottom:black solid 2px;
 
       return (
 
-        <div className ="radio">
+        <div className ="radio" onChange={this.selectGuess}>
 
         {choiceList}
         </div>
@@ -225,6 +225,12 @@ border-bottom:black solid 2px;
 
 
       )
+
+
+    },
+    selectGuess:function(){
+
+        console.log(this.props);
 
 
       }
