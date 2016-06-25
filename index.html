@@ -7,13 +7,23 @@
 
     <style>
 .stateImageContainer{
-    height:148px;
-    width:280px;
+    height:141px;
+    width:266px;
+    
 }
 .stateContainer{
 
 margin:10px;
 border-bottom:black solid 2px;
+
+}
+#stateImagesContainer{
+
+border: 1px black solid;
+
+margin:10px;
+
+
 }
     </style>
 
@@ -30,6 +40,8 @@ border-bottom:black solid 2px;
 
 
     <script src = "underscore/underscore-min.js"></script>
+      <script src = "jquery-ui/external/jquery/jquery.js"></script>
+    <script src = "jquery-ui/jquery-ui.js"></script>
     <script src="react/react.js"></script>
     <script src="react/react-dom.js"></script>
     <script src="react/browser.min.js"></script>
@@ -84,8 +96,10 @@ border-bottom:black solid 2px;
           <div>
 
           <NavigationBar navState={this.state.navState} nextPage={this.nextPage} prevPage = {this.prevPage}/>
-
-          {slicedComponents}
+          <div className = "col-md-3">
+          <StatesImageContainer  stateList={slicedList}/>
+          </div>
+          <div className = "col-md-9"></div>
 
           </div>
 
@@ -108,6 +122,101 @@ border-bottom:black solid 2px;
 
 
     });
+
+    var StatesImageContainer = React.createClass({
+
+      render:function(){
+        var stateList = this.props.stateList;
+        var imageComponents = [];
+        stateList.map(function(item,index){
+
+        imageComponents.push(
+          <div className = "row stateImageContainer">
+          <div className = "col-md-12" key={index}>
+        <img src = {item.imageURL} className = "img-thumbnail"/>
+        </div>
+        </div>
+      )
+
+
+        })
+
+        return (
+          <div id = "stateImagesContainer">
+        {imageComponents}
+
+        </div>
+        )
+
+
+      },
+      componentDidMount:function(){
+
+
+        $('.stateImageContainer').draggable();
+
+      }
+
+
+    })
+
+    var StatesContainer = React.createClass({
+
+      render:function(){
+
+        return(
+
+
+            <div className = "row">
+            <div className = "col-md-4 statesImageContainer">
+            <img src = {this.props.stateObject.imageURL} className="img-thumbnail" onClick={this.setImageURL}/>
+            </div>
+
+            <div className = "col-md-8 well">
+            <ChoiceView choices={this.props.stateObject.choices} choiceName={this.props.stateObject.stateDisplayName} stateIndex={this.props.stateListIndex} />
+            </div>
+
+
+
+
+          </div>
+
+          )
+
+
+      },
+
+      setImageURL:function(){
+
+
+        if(this.state.stateObject.showAnswers){
+
+            this.setState({showAnswers:false,imageURL:("img/partial/"+this.props.stateObject.stateLowerCase+"-partial.png")})
+        }
+        else{
+            this.setState({showAnswers:true,imageURL:("img/full/"+this.props.stateObject.stateLowerCase+"-full.jpg")})
+
+
+
+        }
+
+
+      },
+      componentDidMount:function(){
+        $('.stateContainer').draggable(function(e,u){
+
+
+        });
+
+
+      }
+
+
+
+    });
+
+
+    //Code below is for previous version of the task.
 
     var StateView = React.createClass({
 
@@ -148,6 +257,14 @@ border-bottom:black solid 2px;
 
 
         }
+
+
+      },
+      componentDidMount:function(){
+        $('.stateContainer').draggable(function(e,u){
+
+
+        });
 
 
       }
