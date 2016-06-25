@@ -62,7 +62,7 @@
 
       getInitialState:function(){
 
-        var initialURL = "img/partial/"+this.props.stateName+"-partial.png";
+        var initialURL = "img/partial/"+this.props.stateName.toLowerCase()+"-partial.png";
 
         return {showAnswers:false,hasGuessed:false,imageURL:initialURL}
 
@@ -97,10 +97,10 @@
         console.log(this.state);
         if(this.state.showAnswers){
 
-            this.setState({showAnswers:false,imageURL:("img/partial/"+this.props.stateName+"-partial.png")})
+            this.setState({showAnswers:false,imageURL:("img/partial/"+this.props.stateName.toLowerCase()+"-partial.png")})
         }
         else{
-            this.setState({showAnswers:true,imageURL:("img/full/"+this.props.stateName+"-full.jpg")})
+            this.setState({showAnswers:true,imageURL:("img/full/"+this.props.stateName.toLowerCase()+"-full.jpg")})
 
 
 
