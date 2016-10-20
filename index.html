@@ -3,18 +3,41 @@
   <head>
     <meta charset="utf-8">
     <title>States 'n Plates</title>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 
     <style>
 .stateImageContainer{
-    height:148px;
-    width:280px;
+    height:141px;
+    width:266px;
+    z-index:10;
 }
 .stateContainer{
 
 margin:10px;
 border-bottom:black solid 2px;
+
 }
+.bordered{
+
+
+border: 1px black solid;
+
+
+padding:5px;
+
+}
+.selected{
+
+border: 3px red solid;
+
+}
+.emptyImageDiv{
+
+height:125px;
+
+}
+
+
     </style>
 
   </head>
@@ -29,223 +52,23 @@ border-bottom:black solid 2px;
     </div>
 
 
-    <script src = "underscore/underscore-min.js"></script>
+<!--
+
+      <script src = "jquery-ui/external/jquery/jquery.js"></script>
+    <script src = "jquery-ui/jquery-ui.js"></script>
     <script src="react/react.js"></script>
     <script src="react/react-dom.js"></script>
     <script src="react/browser.min.js"></script>
 
     <script type="text/babel">
 
-    var stateNames = ["Alabama","Arkansas","Arizona","Alaska","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New York","New Hampshire","North Carolina","New Jersey","New Mexico","North Dakota","Oklahoma","Ohio","Oregon","Pennsylvania","Rhode Island","South Dakota","South Carolina","Texas","Tennessee","Utah","Vermont","Virginia","West Virginia","Wisconsin","Washington","Wyoming"];
-
-    var stateList = [];
-    stateNames.forEach(function(state,index){
-      var stateLowerCase = state.toLowerCase().replace(/ /g,'');
-      var imageURL = "img/partial/"+stateLowerCase+"-partial.png";
-      var choices = _.shuffle(_.union(_.sample(_.without(stateNames,state),4),[state]));
-
-
-      var stateObject = {
-      stateDisplayName:state,
-      stateLowerCase:stateLowerCase,
-      showAnswers:false,
-      hasGuessed:false,
-      imageURL:imageURL,
-      choices:choices,
-      stateIndex:index
-
-      }
-      stateList.push(stateObject);
-
-    });
-
-
-    var App = React.createClass({
-      getInitialState:function(){
-
-        //return {stateList:_.shuffle(stateList),navState:0}
-        return {stateList:stateList,navState:0}
-
-      },
-      render: function () {
-
-        var slicedList = this.state.stateList.slice(this.state.navState,this.state.navState+5);
-        var slicedComponents = [];
-        slicedList.map(function(item,index){
-
-        slicedComponents.push(<StateView key={index} stateObject={item} stateListIndex={index}  />)
-
-
-      })
-
-
-        return (
-
-          <div>
-
-          <NavigationBar navState={this.state.navState} nextPage={this.nextPage} prevPage = {this.prevPage}/>
-
-          {slicedComponents}
-
-          </div>
-
-        );
-
-      },
-      nextPage:function(){
-        if(this.state.navState<(this.state.stateList.length-5)){
-      this.setState({navState:this.state.navState+5});
-    }
-
-    },
-    prevPage:function(){
-    this.setState({navState:this.state.navState-5});
-
-    }
-
-
-
-
-    });
-
-    var StateView = React.createClass({
-
-      render:function(){
-
-        return(
-
-
-            <div className = "row stateContainer">
-            <div className = "col-md-4 stateImageContainer">
-            <img src = {this.props.stateObject.imageURL} className="img-thumbnail" onClick={this.setImageURL}/>
-            </div>
-
-            <div className = "col-md-8 well">
-            <ChoiceView choices={this.props.stateObject.choices} choiceName={this.props.stateObject.stateDisplayName} stateIndex={this.props.stateListIndex} />
-            </div>
-
-
-
-
-          </div>
-
-          )
-
-
-      },
-
-      setImageURL:function(){
-
-        if(this.state.stateObject.showAnswers){
-
-            this.setState({showAnswers:false,imageURL:("img/partial/"+this.props.stateObject.stateLowerCase+"-partial.png")})
-        }
-        else{
-            this.setState({showAnswers:true,imageURL:("img/full/"+this.props.stateObject.stateLowerCase+"-full.jpg")})
-
-
-
-        }
-
-
-      }
-
-
-    });
-
-    var NavigationBar = React.createClass({
-
-      getInitialState:function(){
-
-      return {currentIndex:this.props.navState};
-
-      },
-      render:function(){
-
-        if (this.props.navState<45){
-        var nextButton =
-        <button className = "btn btn-lg" ref = "forward-button" onClick={this.props.nextPage}>Next</button>
-      }
-
-        if(this.props.navState>0){
-          var prevButton = <button className = "btn btn-lg" ref="back-button"
-          onClick={this.props.prevPage}>Previous</button>
-
-        }
-
-        return (
-
-          <div className = "row">
-          <div className = "col-md-4 text-center">
-          {prevButton}
-          </div>
-          <div className = "col-md-4 col-md-offset-4 text-center">
-          {nextButton}
-          </div>
-          </div>
-
-
-        )
-
-      }
-
-
-
-    });
-
-    var ChoiceView = React.createClass({
-
-      render:function(){
-        var choices = this.props.choices;
-        var choiceList = [];
-        var stateIndex = this.props.stateIndex;
-
-        choices.map(function(item,index){
-          var itemLowerCase = item.toLowerCase().replace(/ /g,'');
-        choiceList.push(
-          <div className = "col-md-2 text-center" key={index}>
-          <label className="radio-inline">
-              <input type="radio" name={stateIndex} id={item} value={itemLowerCase} />
-            {item}
-          </label>
-          </div>
-
-        );
-
-
-      })
-
-      return (
-
-        <div className ="radio" onChange={this.selectGuess}>
-
-        {choiceList}
-        </div>
-
-
-
-      )
-
-
-    },
-    selectGuess:function(){
-
-        console.log(this.props);
-
-
-      }
-
-
-
-    })
-
-
-
-      ReactDOM.render(
-        <App />,
-        document.getElementById('container')
-      );
 
     </script>
+
+  -->
+  <script src = "underscore/underscore-min.js"></script>
+  <script src="bundle.js"></script>
+
+
   </body>
 </html>
