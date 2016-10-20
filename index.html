@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>States 'n Plates</title>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 
     <style>
 .stateImageContainer{
@@ -17,23 +17,25 @@ margin:10px;
 border-bottom:black solid 2px;
 
 }
-#stateImagesContainer{
+.bordered{
 
 border: 1px black solid;
 
-margin:10px;
-
-
-}
-.stateTargetContainer{
-
-border: 1px black solid;
-height:150px;
-width:90%;
-margin-left:auto;
-margin-right:auto;
+padding:5px;
 
 }
+.selected{
+
+border: 3px red solid;
+
+}
+.emptyImageDiv{
+
+height:125px;
+
+}
+
+
     </style>
 
   </head>
@@ -47,8 +49,9 @@ margin-right:auto;
 
     </div>
 
+
 <!--
-    <script src = "underscore/underscore-min.js"></script>
+
       <script src = "jquery-ui/external/jquery/jquery.js"></script>
     <script src = "jquery-ui/jquery-ui.js"></script>
     <script src="react/react.js"></script>
@@ -61,7 +64,9 @@ margin-right:auto;
     </script>
 
   -->
+  <script src = "underscore/underscore-min.js"></script>
   <script src="bundle.js"></script>
+
 
   </body>
 </html>
