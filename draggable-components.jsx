@@ -38,12 +38,13 @@ var stateSource = {
    // Read the original dragged item from getItem():
    var item = monitor.getItem();
 
-   component.props.removeState(item);
+   //component.props.removeState(item);
 
    // You may also read the drop result from the drop target
    // that handled the drop, if it returned an object from
    // its drop() method.
    var dropResult = monitor.getDropResult();
+   console.log(dropResult);
 
 }
 }
@@ -74,6 +75,7 @@ var StatesImageContainer = React.createClass({
     imageComponents.push(
 
     <StateImageContainer stateObject = {item} key = {index} removeState = {removeState}/>
+
 
   )
 
@@ -108,17 +110,16 @@ render:function(){
 return connectDragSource(
   <div className = "row stateImageContainer" style={(isDragging)?
     {opacity:0.1}:{opacity : 1}} >
-  <div className = "col-md-12" >
-<img src = {this.props.stateObject.imageURL} className = "img img-thumbnail" />
+  <div className = "col-md-12 bordered" >
+    <img className = "img-responsive" src = {this.props.stateObject.imageURL}/>
 </div>
 </div>
   );
-},
-transform: 'translate3d(0,0,0)'
+}
 
 
 })
 
 StateImageContainer = DragSource("stateImage", stateSource, collect)(StateImageContainer);
 
-module.exports = StatesImageContainer;
+module.exports = StateImageContainer;

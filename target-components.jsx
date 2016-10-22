@@ -20,17 +20,19 @@ if(this.props.showAnswers==true){
   var displayMatchStatus = "col-md-12 "+ correctClass
   var displayMatchIcon = (this.props.isCorrect)? "glyphicon glyphicon-ok": "glyphicon glyphicon-remove"
 }
+
 else{
   var displayMatchStatus = "col-md-12 bordered"
   var displayMatchIcon = ""
-  
+
 }
+
   var imageDiv = (this.props.imageURL!=null)?(<img className = "img-responsive" src = {this.props.imageURL}/>):(<div className = "emptyImageDiv"></div>)
     return (
 
       <div>
 
-      <div className = {displayMatchStatus} >
+      <div className = {displayMatchStatus} onMouseOver={this.hoverBorder}>
     <div className = "row">
     <div className = "col-md-12 ">
     <h3 className = "text-center ">{this.props.displayName} <span className ={displayMatchIcon}></span></h3>
@@ -53,13 +55,11 @@ else{
 
 
   }
-
-
 })
 
 var DroppableTarget = React.createClass({
   getInitialState:function(){
-  return {droppedStateItem:{}}
+  return {showAnswers:false}
 
 },
   render:function(){
@@ -68,21 +68,18 @@ var DroppableTarget = React.createClass({
     var canDrop = this.props.canDrop;
     var connectDropTarget = this.props.connectDropTarget;
 
+    var hoverClass = (this.props.isOver)?"targetDiv selected":"targetDiv ";
 
-
-
-    var hoverClass = (this.props.isOver)?"well stateTargetContainer selected":"well stateTargetContainer ";
-
-    var answerClass = (this.state.droppedStateItem.isCorrect?'bg-success':'bg-danger');
+    //var answerClass = (this.state.droppedStateItem.isCorrect?'bg-success':'bg-danger');
     //if(isOver){console.log(this.props)}
     return connectDropTarget(
-    <div className = "row">
-    <div className = {answerClass}>
+    <div className = "col-md-4 ">
+
     <div className = {hoverClass}>
-    <img className = "img img-thumbnail" src = {this.state.droppedStateItem.imageURL}/>
+    <StateTargetContainer imageURL = {this.state.draggedStateImageURL} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.state.showAnswers} key = {this.props.stateInput.stateIndex}> </StateTargetContainer>
 
     </div>
-    </div>
+
     </div>
   )
 
@@ -109,8 +106,8 @@ var stateTarget = {
   canDrop: function (props, monitor) {
     // You can disallow drop based on props or item
     var item = monitor.getItem();
-    //console.log(item)
-    return true;
+    console.log(props)
+    return (item.imageURL!=null);
   },
 
 
@@ -125,6 +122,7 @@ var stateTarget = {
   },
 
   drop: function (props, monitor, component) {
+    var debug = component.props.showAnswersOnDrag;
     if (monitor.didDrop()) {
       // If you want, you can check whether some nested
       // target already handled drop
@@ -135,16 +133,15 @@ var stateTarget = {
     var item = monitor.getItem();
 
     // You can do something with it
-
-    if(item.stateDisplayName==props.stateName){
-      console.log('correct')
+    component.setState({draggedStateImageURL:item.imageURL})
+    if(item.stateDisplayName==props.stateInput.stateDisplayName){
+      component.setState({correctlyMatched:true,showAnswers:debug});
 
     }
     else{
 
-      console.log('incorrect')
+      component.setState({correctlyMatched:false,showAnswers:debug});
     }
-    //component.setState({droppedStateItem:item})
 
 
     return item;
@@ -173,4 +170,4 @@ function collect(connect, monitor) {
 
 DroppableTarget = DropTarget("stateImage", stateTarget, collect)(DroppableTarget);
 
-module.exports = StateTargetContainer;
+module.exports = {StateTargetContainer,DroppableTarget};
