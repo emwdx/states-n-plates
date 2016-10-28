@@ -44,7 +44,7 @@ var stateSource = {
    // that handled the drop, if it returned an object from
    // its drop() method.
    var dropResult = monitor.getDropResult();
-   console.log(dropResult);
+   //console.log(dropResult);
 
 }
 }

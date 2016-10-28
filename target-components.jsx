@@ -76,7 +76,7 @@ var DroppableTarget = React.createClass({
     <div className = "col-md-4 ">
 
     <div className = {hoverClass}>
-    <StateTargetContainer imageURL = {this.state.draggedStateImageURL} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.state.showAnswers} key = {this.props.stateInput.stateIndex}> </StateTargetContainer>
+    <StateTargetContainer imageURL = {this.state.draggedStateImageURL} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex}> </StateTargetContainer>
 
     </div>
 
@@ -106,7 +106,7 @@ var stateTarget = {
   canDrop: function (props, monitor) {
     // You can disallow drop based on props or item
     var item = monitor.getItem();
-    console.log(props)
+    //console.log(props)
     return (item.imageURL!=null);
   },
 
@@ -135,14 +135,18 @@ var stateTarget = {
     // You can do something with it
     component.setState({draggedStateImageURL:item.imageURL})
     if(item.stateDisplayName==props.stateInput.stateDisplayName){
-      component.setState({correctlyMatched:true,showAnswers:debug});
+      component.setState({correctlyMatched:true,showAnswers:(debug|props.stateInput.showAnswers)});
+
 
     }
     else{
 
-      component.setState({correctlyMatched:false,showAnswers:debug});
+      component.setState({correctlyMatched:false,showAnswers:(debug|props.stateInput.showAnswers)});
+
     }
 
+    component.props.changeStateData(item.stateIndex,{isCorrect:(item.stateDisplayName==props.stateInput.stateDisplayName),hasGuessed:true});
+    //console.log(props.stateInput.stateIndex);
 
     return item;
   }

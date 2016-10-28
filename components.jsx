@@ -17,7 +17,7 @@ var GameView = require('./game-components.jsx')
 
 //var stateNames = ["Alabama","Arkansas","Arizona","Alaska","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New York","New Hampshire","North Carolina","New Jersey","New Mexico","North Dakota","Oklahoma","Ohio","Oregon","Pennsylvania","Rhode Island","South Dakota","South Carolina","Texas","Tennessee","Utah","Vermont","Virginia","West Virginia","Wisconsin","Washington","Wyoming"];
 
-var stateNames = ["Ohio","California"]
+var stateNames = ["Ohio","California","New York"]
 var stateList = [];
 stateNames.slice(0,5).forEach(function(state,index){
   var stateLowerCase = state.toLowerCase().replace(/ /g,'');
@@ -47,26 +47,13 @@ var App = React.createClass({
   getInitialState:function(){
 
     //return {stateList:_.shuffle(stateList),navState:0}
-    return {stateList:stateList,currentStates:stateList,stateTargets:_.shuffle(stateList),navState:0}
+    return {stateList:stateList,stateTargets:_.shuffle(stateList),navState:0}
 
   },
   render: function () {
 
-    var slicedList = this.state.currentStates.slice(this.state.navState,this.state.navState+5);
-    var slicedComponents = [];
-    slicedList.map(function(item,index){
-
-    //slicedComponents.push(<StateView key={index} stateObject={item} stateListIndex={index}  />)
-
-  })
-
-  var shuffledComponents = _.shuffle(this.state.stateTargets);
-
-
-
-
-var stateTargets = [];
-slicedList.map(function(e,i){
+  var stateTargets = [];
+stateList.map(function(e,i){
 
 stateTargets.push(
 
@@ -85,24 +72,8 @@ var newApp = (
   <GameView stateList = {this.state.stateList} parentState = {this.state} changeStateData = {this.changeStateData} ></GameView>
 
 
-  <hr/>
-  <div className = "row">
-  <div className = "col-md-3">
-  Here's how the dragging action will work:
-  </div>
-  </div>
-  <div className = "row">
-  <div className = "col-md-3">
-  <StateImageContainer stateObject = {stateList[0]} key = {0} />
-  <StateImageContainer stateObject = {stateList[1]} key = {1} />
-  </div>
-  <div className = "col-md-9">
-  <div className = "row">
-  {stateTargets}
-  </div>
-  </div>
 
-  </div>
+
   <hr/>
   <p/>
   <div className = "row">

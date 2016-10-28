@@ -10,20 +10,22 @@ var GameView = React.createClass({
 
 getInitialState:function(){
 
-return {stateList:this.props.stateList}
+return {stateList:this.props.stateList,currentScore:0}
 
 },
 
 render:function(){
 
   var stateTargets = [];
-  this.props.stateList.map(function(e,i){
+
+  var component = this;
+  this.state.stateList.map(function(e,i){
 
 
   stateTargets.push(
 
   <DroppableTarget stateInput = {e}
-  key = {i} showAnswersOnDrag = {false}>
+  key = {i} showAnswersOnDrag = {false} changeStateData = {component.changeStateData}>
 
   </DroppableTarget>
 
@@ -31,17 +33,35 @@ render:function(){
   })
 
   var stateImages = [];
-  this.props.stateList.map(function(e,i){
-    if(!e.hasGuessed){
+  var awaitingGuesses = _.filter(this.state.stateList,function(state){ return !state.hasGuessed;});
+
+  if(awaitingGuesses.length>0){
+  this.state.stateList.map(function(e,i){
+ if(!e.hasGuessed){
     stateImages.push(
     <div className = "row" key = {i}>
     <div className = "col-md-12">
     <StateImageContainer stateObject = {e}  />
+
     </div>
     </div>
   );
 }
+
   })
+}
+else{
+
+  stateImages = (
+    <div className = "row" >
+    <div className = "col-md-12 text-center">
+    <button className = "btn btn-primary btn-lg" onClick = {this.toggleAnswers}>Check my answers!</button>
+
+    </div>
+    </div>
+
+  )
+}
 
 return(
   <div>
@@ -52,11 +72,12 @@ return(
 
   </div>
 
-  <div className = "col-md-9" onClick = {this.changeStateData}>
+  <div className = "col-md-9" >
   <div className = "row">
   {stateTargets}
   </div>
   </div>
+
 
 
   </div>
@@ -65,21 +86,43 @@ return(
 
 
 },
-changeStateData:function(){
+changeStateData:function(index,stateObject){
 
-var states = this.state.stateList;
-states.forEach(function(state){
+var currentState = this.state.stateList;
 
-state.showAnswers=true;
+var selectedStateObject = currentState[index];
+var changedProperties = Object.keys(stateObject);
+changedProperties.forEach(function(key){
+
+selectedStateObject[key]=stateObject[key]
 
 })
 
-this.props.changeStateData({stateList:states});
-console.log(this.props.parentState);
+console.log(currentState);
+
+currentState[index]=selectedStateObject;
+this.setState({stateList:currentState});
+
+},
+toggleAnswers:function(){
+  var states = this.state.stateList;
+  states.forEach(function(state){
+
+  state.showAnswers=true;
+
+  })
+
+
+  this.props.changeStateData({stateList:states});
+  console.log(this.props.parentState);
+
+
 }
 
 
 
 })
+
+
 
 module.exports = GameView;
