@@ -17,7 +17,7 @@ var GameView = require('./game-components.jsx')
 
 //var stateNames = ["Alabama","Arkansas","Arizona","Alaska","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New York","New Hampshire","North Carolina","New Jersey","New Mexico","North Dakota","Oklahoma","Ohio","Oregon","Pennsylvania","Rhode Island","South Dakota","South Carolina","Texas","Tennessee","Utah","Vermont","Virginia","West Virginia","Wisconsin","Washington","Wyoming"];
 
-var stateNames = ["Ohio","California","New York"]
+var stateNames = ["Ohio","California","New York","Connecticut","Pennsylvania"]
 var stateList = [];
 stateNames.slice(0,5).forEach(function(state,index){
   var stateLowerCase = state.toLowerCase().replace(/ /g,'');

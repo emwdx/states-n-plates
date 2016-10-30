@@ -35,12 +35,12 @@ else{
       <div className = {displayMatchStatus} onMouseOver={this.hoverBorder}>
     <div className = "row">
     <div className = "col-md-12 ">
-    <h3 className = "text-center ">{this.props.displayName} <span className ={displayMatchIcon}></span></h3>
+    <h4 className = "text-center ">{this.props.displayName} <span className ={displayMatchIcon}></span></h4>
     </div>
     </div>
 
     <div className = "row">
-    <div className = "col-md-12">
+    <div className = "col-md-4 col-md-offset-4">
     <div className = "center-block">
     {imageDiv}
     </div>
@@ -73,7 +73,7 @@ var DroppableTarget = React.createClass({
     //var answerClass = (this.state.droppedStateItem.isCorrect?'bg-success':'bg-danger');
     //if(isOver){console.log(this.props)}
     return connectDropTarget(
-    <div className = "col-md-4 ">
+    <div className = "col-md-12 ">
 
     <div className = {hoverClass}>
     <StateTargetContainer imageURL = {this.state.draggedStateImageURL} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex}> </StateTargetContainer>
