@@ -15,11 +15,11 @@ var GameView = require('./game-components.jsx')
 
 
 
-//var stateNames = ["Alabama","Arkansas","Arizona","Alaska","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New York","New Hampshire","North Carolina","New Jersey","New Mexico","North Dakota","Oklahoma","Ohio","Oregon","Pennsylvania","Rhode Island","South Dakota","South Carolina","Texas","Tennessee","Utah","Vermont","Virginia","West Virginia","Wisconsin","Washington","Wyoming"];
+var stateNames = ["Ohio","California","New York","Connecticut","Pennsylvania","Alabama","Arkansas","Arizona","Alaska","Colorado","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","North Carolina","New Jersey","New Mexico","North Dakota","Oklahoma","Oregon","Rhode Island","South Dakota","South Carolina","Texas","Tennessee","Utah","Vermont","Virginia","West Virginia","Wisconsin","Washington","Wyoming"];
 
-var stateNames = ["Ohio","California","New York","Connecticut","Pennsylvania"]
+//var stateNames = []
 var stateList = [];
-stateNames.slice(0,5).forEach(function(state,index){
+stateNames.forEach(function(state,index){
   var stateLowerCase = state.toLowerCase().replace(/ /g,'');
   var imageURL = "img/partial/"+stateLowerCase+"-partial.png";
   //var choices = _.shuffle(_.union(_.sample(_.without(stateNames,state),4),[state]));
@@ -31,7 +31,8 @@ stateNames.slice(0,5).forEach(function(state,index){
   stateDisplayName:state,
   stateLowerCase:stateLowerCase,
   showAnswers:false,
-  hasGuessed:false,
+  hasBeenDroppedOnto:false,
+  hasBeenDropped:false,
   imageURL:imageURL,
   stateIndex:index,
   currentGuess:"",
@@ -41,65 +42,29 @@ stateNames.slice(0,5).forEach(function(state,index){
   stateList.push(stateObject);
 
 });
+//var stateTargetList = _.shuffle(stateList)
+
 
 
 var App = React.createClass({
   getInitialState:function(){
 
     //return {stateList:_.shuffle(stateList),navState:0}
-    return {stateList:stateList,stateTargets:_.shuffle(stateList),navState:0}
+    return {stateList:stateList,visibleStates:stateList.slice(0,5), shuffledStates: _.shuffle(stateList.slice(0,5)),navState:0}
 
   },
   render: function () {
 
-  var stateTargets = [];
-stateList.map(function(e,i){
-
-stateTargets.push(
-
-<DroppableTarget stateInput = {e} key = {i} showAnswersOnDrag = {true}>
-
-</DroppableTarget>
-
-)
-})
 
 var newApp = (
 
   <div>
 
 
-  <GameView stateList = {this.state.stateList} parentState = {this.state} changeStateData = {this.changeStateData} ></GameView>
-
-
-
-
+  <GameView currentStateList = {this.state.visibleStates} currentTargetList = {this.state.shuffledStates} parentState = {this.state} changeStateData = {this.changeStateData} changeParentState = {this.changeParentState} nextStates={this.nextStates} ></GameView>
   <hr/>
-  <p/>
-  <div className = "row">
-  <div className = "col-md-6">
-  </div>
-  <div className = "col-md-6">
-  </div>
-  </div>
-  <div className = "row">
-  <div className = "col-md-3">
-  Correct:
-  <StateTargetContainer imageURL = {"img/partial/ohio-partial.png"} displayName={"Ohio"} isCorrect = {true}  showAnswers = {true}> </StateTargetContainer>
-  </div>
-  <div className = "col-md-3">
-  Incorrect:
-  <StateTargetContainer imageURL = {"img/partial/ohio-partial.png"} displayName={"California"}  isCorrect = {false}  showAnswers = {true}></StateTargetContainer>
-  </div>
-  <div className = "col-md-3">
-  Before dragging a plate :
-  <StateTargetContainer imageURL = {null} displayName={"California"} isCorrect = {false} showAnswers = {false}></StateTargetContainer>
-  </div>
-  <div className = "col-md-3">
-  After dragging, answers hidden:
-  <StateTargetContainer imageURL = {"img/partial/ohio-partial.png"} displayName={"California"} isCorrect = {false} showAnswers = {false}></StateTargetContainer>
-  </div>
-</div>
+
+
 </div>
 
 
@@ -128,12 +93,21 @@ changeStateData:function(stateObject){
 
 
 return this.setState(stateObject);
+},
+nextStates:function(){
+
+var currNavState = this.state.navState;
+this.setState({navState:currNavState,visibleStates:this.state.stateList.slice(currNavState+5,currNavState+10),shuffledStates: _.shuffle(this.state.stateList.slice(currNavState+5,currNavState+10)),navState:(currNavState+5)});
+console.log(this)
+
+
+
+},
+changeParentState:function(stateObject){
+
+return this.setState(stateObject);
+
 }
-
-
-
-
-
 });
 
 
@@ -184,7 +158,7 @@ var NavigationBar = React.createClass({
 
 var DraggableApp = DragDropContext(HTML5Backend)(App);
 
-  ReactDOM.render(
+ReactDOM.render(
     <DraggableApp/>,
     document.getElementById('container')
   );
