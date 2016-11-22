@@ -26,7 +26,7 @@ else{
   var displayMatchIcon = ""
 
 }
-  var arrowDiv = (this.props.imageURL!=null & this.props.changeAnswers)?(<h1 className="glyphicon glyphicon-arrow-left change-answers" onClick={this.props.undoGuess}></h1>):(<h1 className="glyphicon glyphicon-arrow-left" style = {{opacity:0}}></h1>);
+  var arrowDiv = (this.props.imageURL!=null & this.props.changeAnswers)?(<h2 className="glyphicon glyphicon-remove-circle change-answers" onClick={this.props.undoGuess}></h2>):(<h2 className="glyphicon glyphicon-remove-circle" style = {{opacity:0}}></h2>);
 
 
   var imageDiv = (this.props.imageURL!=null)?
@@ -50,10 +50,10 @@ else{
     </div>
 
     <div className = "row">
-    <div className = "col-md-4 text-right">
+    <div className = "col-md-4 col-xs-4 text-right">
     {arrowDiv}
     </div>
-    <div className = "col-md-4">
+    <div className = "col-md-4 col-xs-8">
     <div className = "center-block">
           {imageDiv}
     </div>
@@ -84,7 +84,7 @@ var DroppableTarget = React.createClass({
 
 
     return connectDropTarget(
-    <div className = "col-md-12 ">
+    <div className = "col-md-12 col-xs-8 col-xs-offset-2">
 
     <div className = {hoverClass}>
     <StateTargetContainer imageURL = {this.props.stateInput.draggedStateImageURL} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex} changeAnswers={!this.props.stateInput.showAnswers} undoGuess={this.undoGuess}> </StateTargetContainer>

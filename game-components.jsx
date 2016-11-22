@@ -43,7 +43,7 @@ render:function(){
  if(!e.hasBeenDropped){
     stateImages.push(
     <div className = "row" key = {i}>
-    <div className = "col-md-12">
+    <div className = "col-md-12 col-xs-8 col-xs-offset-2">
     <StateImageContainer stateObject = {e}  />
 
     </div>
@@ -66,7 +66,7 @@ else{
   }
   stateImages = (
     <div className = "row" >
-    <div className = "col-md-12 text-center">
+    <div className = "col-md-12  text-center">
     {visibleButton}
 
     </div>
@@ -80,13 +80,13 @@ return(
   <div>
   <ScoreBoard score = {this.state.currentScore}></ScoreBoard>
   <div className = "row">
-  <div className = "col-md-3">
+  <div className = "col-md-3 col-xs-7">
 
   {stateImages}
 
   </div>
 
-  <div className = "col-md-9" >
+  <div className = "col-md-9 col-xs-5" >
 
   {stateTargets}
 
