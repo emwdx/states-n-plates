@@ -50,7 +50,7 @@ var App = React.createClass({
   getInitialState:function(){
 
     //return {stateList:_.shuffle(stateList),navState:0}
-    return {stateList:stateList,visibleStates:stateList.slice(0,5), shuffledStates: _.shuffle(stateList.slice(0,5)),navState:0}
+    return {stateList:stateList,visibleStates:stateList.slice(0,4), shuffledStates: _.shuffle(stateList.slice(0,4)),navState:0}
 
   },
   render: function () {
@@ -73,17 +73,6 @@ var newApp = (
     return newApp;
 
   },
-  nextPage:function(){
-    if(this.state.navState<(this.state.stateList.length-5)){
-  this.setState({navState:this.state.navState+5});
-}
-
-},
-prevPage:function(){
-this.setState({navState:this.state.navState-5});
-
-},
-
 removeState:function(currentState){
   //console.log("passed down")
 this.setState({currentStates:_.without(this.state.currentStates,currentState)})
@@ -97,7 +86,7 @@ return this.setState(stateObject);
 nextStates:function(){
 
 var currNavState = this.state.navState;
-this.setState({navState:currNavState,visibleStates:this.state.stateList.slice(currNavState+5,currNavState+10),shuffledStates: _.shuffle(this.state.stateList.slice(currNavState+5,currNavState+10)),navState:(currNavState+5)});
+this.setState({navState:currNavState,visibleStates:this.state.stateList.slice(currNavState+4,currNavState+8),shuffledStates: _.shuffle(this.state.stateList.slice(currNavState+4,currNavState+8)),navState:(currNavState+4)});
 console.log(this)
 
 
@@ -112,9 +101,6 @@ return this.setState(stateObject);
 
 
 
-
-
-
 var NavigationBar = React.createClass({
 
   getInitialState:function(){
@@ -124,7 +110,7 @@ var NavigationBar = React.createClass({
   },
   render:function(){
 
-    if (this.props.navState<45){
+    if (this.props.navState<48){
     var nextButton =
     <button className = "btn btn-lg" ref = "forward-button" onClick={this.props.nextPage}>Next</button>
   }

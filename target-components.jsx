@@ -41,13 +41,14 @@ else{
     return (
 
       <div>
-
+      
       <div className = {displayMatchStatus} onMouseOver={this.hoverBorder}>
     <div className = "row">
     <div className = "col-md-12 ">
-    <h4 className = "text-center ">{this.props.displayName} <span className ={displayMatchIcon}></span></h4>
+    <h5 className = "text-center ">{this.props.displayName} <span className ={displayMatchIcon}></span></h5>
     </div>
     </div>
+
 
     <div className = "row">
     <div className = "col-md-4 col-xs-4 text-right">

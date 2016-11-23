@@ -43,7 +43,7 @@ render:function(){
  if(!e.hasBeenDropped){
     stateImages.push(
     <div className = "row" key = {i}>
-    <div className = "col-md-12 col-xs-8 col-xs-offset-2">
+    <div className = "col-md-12 col-xs-12 ">
     <StateImageContainer stateObject = {e}  />
 
     </div>
@@ -61,7 +61,7 @@ else{
   }
   else{
 
-    var visibleButton = <button className = "btn btn-primary btn-lg" onClick = {this.showNextStates}>Next 5 States</button>
+    var visibleButton = <button className = "btn btn-primary btn-lg" onClick = {this.showNextStates}>Next States</button>
 
   }
   stateImages = (
@@ -78,10 +78,14 @@ else{
 if(this.props.currentStateList.length>0){
 return(
   <div>
-  <ScoreBoard score = {this.state.currentScore}></ScoreBoard>
+
   <div className = "row">
   <div className = "col-md-3 col-xs-7">
-
+  <div className = "row">
+  <div className = "col-md-12">
+  <ScoreBoard score = {this.state.currentScore}></ScoreBoard>
+  </div>
+  </div>
   {stateImages}
 
   </div>
@@ -180,8 +184,8 @@ render:function(){
 
 return(
 <div className ="row">
-<div className = "col-md-offset-4 col-md-4 text-center">
-  <h2>States Correct: <span className = "text-success">{this.props.score}</span></h2>
+<div className = " col-md-12 text-center">
+  <h3>States Correct: <span className = "text-success">{this.props.score}</span></h3>
 </div>
 </div>
 )
