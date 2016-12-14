@@ -4,6 +4,7 @@ var _ = require('./underscore/underscore');
 var DragDropContext = require('react-dnd').DragDropContext;
 
 var HTML5Backend = require('react-dnd-html5-backend');
+import { default as TouchBackend } from 'react-dnd-touch-backend';
 
 var StateImageContainer = require('./draggable-components.jsx')
 var {StateTargetContainer,DroppableTarget} = require('./target-components.jsx')
@@ -144,7 +145,7 @@ var NavigationBar = React.createClass({
 });
 
 
-var DraggableApp = DragDropContext(HTML5Backend)(App);
+var DraggableApp = DragDropContext(TouchBackend({ enableMouseEvents: true }))(App);
 
 ReactDOM.render(
     <DraggableApp/>,
