@@ -145,7 +145,7 @@ var NavigationBar = React.createClass({
 });
 
 
-var DraggableApp = DragDropContext(TouchBackend({ enableMouseEvents: true }))(App);
+var DraggableApp = DragDropContext(HTML5Backend)(App);
 
 ReactDOM.render(
     <DraggableApp/>,
