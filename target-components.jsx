@@ -4,6 +4,7 @@ var PropTypes = React.PropTypes;
 
 
 var DropTarget = require('react-dnd').DropTarget;
+var AnimateOnChange = require('react-animate-on-change')
 
 
 
@@ -16,33 +17,39 @@ var StateTargetContainer = React.createClass({
 
 if(this.props.showAnswers==true){
 
-  var correctClass = (this.props.isCorrect)?"bg-success bordered":"bg-danger bordered"
-  var displayMatchStatus = "col-md-12 "+ correctClass
-  var displayMatchIcon = (this.props.isCorrect)? "glyphicon glyphicon-ok": "glyphicon glyphicon-remove"
+  var correctClass = (this.props.isCorrect)?"bg-success bordered":"bg-danger bordered";
+  var displayMatchStatus = "col-md-12 "+ correctClass;
+  var displayMatchIcon = (this.props.isCorrect)? "glyphicon glyphicon-ok": "glyphicon glyphicon-remove";
+  var currentImageURL = this.props.imageURL;
 }
 
 else{
   var displayMatchStatus = "col-md-12 bordered"
   var displayMatchIcon = ""
+  var currentImageURL = this.props.imageURL;
+
 
 }
-  var arrowDiv = (this.props.imageURL!=null & this.props.changeAnswers)?(<h2 className="glyphicon glyphicon-remove-circle change-answers" onClick={this.props.undoGuess}></h2>):(<h2 className="glyphicon glyphicon-remove-circle" style = {{opacity:0}}></h2>);
+  var arrowDiv = (this.props.imageURL!=null & this.props.changeAnswers)?(<h3 className="glyphicon glyphicon-remove-circle change-answers" onClick={this.props.undoGuess}></h3>):(<h3 className="glyphicon glyphicon-remove-circle" style = {{opacity:0}}></h3>);
 
 
   var imageDiv = (this.props.imageURL!=null)?
   (
     <div >
 
-        <img className = "img-responsive" src = {this.props.imageURL}/>
+        <img className = "img-responsive" src = {currentImageURL}/>
+        
+
+
 
     </div>
 
   ):(<div className = "emptyImageDiv"></div>)
     return (
 
-      <div>
-      
-      <div className = {displayMatchStatus} onMouseOver={this.hoverBorder}>
+      <div className = "clearfix">
+
+      <div className = {displayMatchStatus} >
     <div className = "row">
     <div className = "col-md-12 ">
     <h5 className = "text-center ">{this.props.displayName} <span className ={displayMatchIcon}></span></h5>
@@ -57,6 +64,7 @@ else{
     <div className = "col-md-4 col-xs-8">
     <div className = "center-block">
           {imageDiv}
+
     </div>
     </div>
     </div>
@@ -81,14 +89,24 @@ var DroppableTarget = React.createClass({
     var canDrop = this.props.canDrop;
     var connectDropTarget = this.props.connectDropTarget;
 
-    var hoverClass = (this.props.isOver)?"targetDiv selected":"targetDiv ";
+    var hoverClass = (this.props.isOver)?"selected targetDiv ":"targetDiv ";
 
+    if(this.props.stateInput.showAnswers){
 
+      var displayImage = this.props.stateInput.draggedStateImageFullURL;
+
+    }
+    else{
+      if(this.props.stateInput.draggedStateImageURL!=null){
+      var displayImage = this.props.stateInput.draggedStateImageURL;
+      }
+
+    }
     return connectDropTarget(
-    <div className = "col-md-12 col-xs-8 col-xs-offset-2">
+    <div className = "col-xs-12 col-md-12">
 
     <div className = {hoverClass}>
-    <StateTargetContainer imageURL = {this.props.stateInput.draggedStateImageURL} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex} changeAnswers={!this.props.stateInput.showAnswers} undoGuess={this.undoGuess}> </StateTargetContainer>
+    <StateTargetContainer imageURL = {displayImage} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex} changeAnswers={!this.props.stateInput.showAnswers} undoGuess={this.undoGuess} fullImageURL = {this.props.stateInput.fullImageURL}> </StateTargetContainer>
 
     </div>
 
@@ -149,7 +167,7 @@ var stateTarget = {
     var droppedOnto = props.stateInput.stateIndex;
 
     // You can do something with it
-    component.setState({draggedStateImageURL:item.imageURL,droppedStateIndex:item.stateIndex})
+    component.setState({draggedStateImageURL:item.imageURL,draggedStateImageFullURL:item.fullImageURL,droppedStateIndex:item.stateIndex})
     if(item.stateDisplayName==props.stateInput.stateDisplayName){
       component.setState({correctlyMatched:true,showAnswers:(debug|props.stateInput.showAnswers)});
 
@@ -163,7 +181,7 @@ var stateTarget = {
 
     component.props.changeStateData(item.stateIndex,{isCorrect:(item.stateDisplayName==props.stateInput.stateDisplayName),hasBeenDropped:true});
 
-    component.props.changeStateData(droppedOnto,{hasBeenDroppedOnto:true,draggedStateImageURL:item.imageURL})
+    component.props.changeStateData(droppedOnto,{hasBeenDroppedOnto:true,draggedStateImageURL:item.imageURL,draggedStateImageFullURL:item.fullImageURL})
     //console.log(props.stateInput.stateIndex);
 
     return item;

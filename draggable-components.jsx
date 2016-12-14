@@ -110,8 +110,8 @@ render:function(){
 return connectDragSource(
   <div className = "row stateImageContainer" style={(isDragging)?
     {opacity:0.1}:{opacity : 1}} >
-  <div className = "col-md-12 bordered" >
-    <img className = "img-responsive" src = {this.props.stateObject.imageURL}/>
+  <div className = "col-md-12 col-xs-12 bordered " >
+    <img className = "img-responsive stateImage center-block" src = {this.props.stateObject.imageURL}/>
 </div>
 </div>
   );

@@ -22,6 +22,7 @@ var stateList = [];
 stateNames.forEach(function(state,index){
   var stateLowerCase = state.toLowerCase().replace(/ /g,'');
   var imageURL = "img/partial/"+stateLowerCase+"-partial.png";
+  var fullImageURL = "img/full/"+stateLowerCase+"-full.jpg";
   //var choices = _.shuffle(_.union(_.sample(_.without(stateNames,state),4),[state]));
 
 
@@ -34,6 +35,7 @@ stateNames.forEach(function(state,index){
   hasBeenDroppedOnto:false,
   hasBeenDropped:false,
   imageURL:imageURL,
+  fullImageURL:fullImageURL,
   stateIndex:index,
   currentGuess:"",
   isCorrect:false

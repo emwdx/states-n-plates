@@ -12,15 +12,12 @@
 font-size: 28px;
 
 }
-.stateImageContainer{
 
-
-    z-index:10;
-}
 .stateContainer{
 
-margin:10px;
+margin:5px;
 border-bottom:black solid 2px;
+
 
 }
 .bordered{
@@ -28,20 +25,31 @@ border-bottom:black solid 2px;
 
 border: 1px black solid;
 
-
 padding:5px;
+
+}
+
+.stateImage{
+max-height:120px;
 
 
 }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .selected{
-      -webkit-box-shadow:inset 0px 0px 0px 5px #f00;
-      -moz-box-shadow:inset 0px 0px 0px 5px #f00;
-      box-shadow:inset 0px 0px 0px 5px #f00;
+      -webkit-box-shadow:inset 0px 0px 0px 5px #f00 !important;
+      -moz-box-shadow:inset 0px 0px 0px 5px #f00 !important;
+      box-shadow:inset 0px 0px 0px 5px #f00 !important;
 }
 
 .emptyImageDiv{
-
-height:70px;
+padding:0px;
+height:100px;
 
 }
 
@@ -50,9 +58,31 @@ overflow:none;
 
 }
 
+img{
+max-width:100%;
 
 
+}
 
+.bg-success{
+opacity: 1;
+   transition: background-color 0.75s ease-in-out;
+   -moz-transition: background-color  0.75s ease-in-out;
+   -webkit-transition: background-color  0.75s ease-in-out;
+ }
+
+ .bg-danger{
+ opacity: 1;
+    transition: background-color 0.75s ease-in-out;
+    -moz-transition: background-color  0.75s ease-in-out;
+    -webkit-transition: background-color  0.75s ease-in-out;
+  }
+.full-image{
+
+margin-top:-100px;
+
+
+}
     </style>
 
   </head>
@@ -76,20 +106,6 @@ overflow:none;
     </div>
 
 
-<!--
-
-      <script src = "jquery-ui/external/jquery/jquery.js"></script>
-    <script src = "jquery-ui/jquery-ui.js"></script>
-    <script src="react/react.js"></script>
-    <script src="react/react-dom.js"></script>
-    <script src="react/browser.min.js"></script>
-
-    <script type="text/babel">
-
-
-    </script>
-
-  -->
   <script src = "underscore/underscore-min.js"></script>
   <script src="bundle.js"></script>
 

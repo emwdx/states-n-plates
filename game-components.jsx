@@ -57,16 +57,16 @@ else{
 
   if(!this.state.showAnswers){
 
-    var visibleButton = <button className = "btn btn-primary btn-lg" onClick = {this.toggleAnswers}>Check my answers!</button>
+    var visibleButton = <button className = "btn btn-primary " onClick = {this.toggleAnswers}>Check Answers!</button>
   }
   else{
 
-    var visibleButton = <button className = "btn btn-primary btn-lg" onClick = {this.showNextStates}>Next States</button>
+    var visibleButton = <button className = "btn btn-primary " onClick = {this.showNextStates}>Next States</button>
 
   }
   stateImages = (
     <div className = "row" >
-    <div className = "col-md-12  text-center">
+    <div className = "col-md-12 col-xs-12 text-center">
     {visibleButton}
 
     </div>
@@ -77,10 +77,10 @@ else{
 
 if(this.props.currentStateList.length>0){
 return(
-  <div>
+
 
   <div className = "row">
-  <div className = "col-md-3 col-xs-7">
+  <div className = "col-md-4 col-xs-3">
   <div className = "row">
   <div className = "col-md-12">
   <ScoreBoard score = {this.state.currentScore}></ScoreBoard>
@@ -90,7 +90,7 @@ return(
 
   </div>
 
-  <div className = "col-md-9 col-xs-5" >
+  <div className = "col-md-8 col-xs-9" >
 
   {stateTargets}
 
@@ -99,18 +99,19 @@ return(
 
 
   </div>
-  </div>
+
 )
 }
 else{
 
 return (
-
+  <div className = "container">
   <div className = "row">
   <div className = "col-md-4 col-md-offset-4 page-header text-center">
   <h1>You correctly matched <span className = "text-success">{this.state.currentScore}</span> states.</h1>
 
 
+  </div>
   </div>
   </div>
 
