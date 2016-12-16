@@ -4,7 +4,7 @@ var PropTypes = React.PropTypes;
 
 
 var DropTarget = require('react-dnd').DropTarget;
-var AnimateOnChange = require('react-animate-on-change')
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 
 
 
@@ -36,11 +36,18 @@ else{
   var imageDiv = (this.props.imageURL!=null)?
   (
     <div >
+    <ReactCSSTransitionGroup
+          transitionName="example"
 
-        <img className = "img-responsive" src = {currentImageURL}/>
-        
+
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={1000}>
+
+        <img className = "img-responsive" src = {currentImageURL} key={currentImageURL} />
 
 
+
+  </ReactCSSTransitionGroup>
 
     </div>
 
@@ -63,7 +70,10 @@ else{
     </div>
     <div className = "col-md-4 col-xs-8">
     <div className = "center-block">
+
+
           {imageDiv}
+
 
     </div>
     </div>

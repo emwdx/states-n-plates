@@ -65,6 +65,8 @@ max-height:100px;
 
 }
 
+
+
 .bg-success{
 opacity: 1;
    transition: background-color 0.75s ease-in-out;
@@ -74,10 +76,49 @@ opacity: 1;
 
  .bg-danger{
  opacity: 1;
-    transition: background-color 0.75s ease-in-out;
-    -moz-transition: background-color  0.75s ease-in-out;
-    -webkit-transition: background-color  0.75s ease-in-out;
+    transition: background-color 1s ease-in-out;
+    -moz-transition: background-color  1s ease-in-out;
+    -webkit-transition: background-color  1s ease-in-out;
   }
+
+.example-enter {
+  opacity: 0.01;
+  position:absolute;
+  height: auto;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+
+
+
+}
+
+.example-leave {
+  opacity: 1;
+
+
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 1000ms ease-in;
+
+
+}
+
+.example-appear {
+  opacity: 0.01;
+
+}
+
+.img-responsive.example-appear.example-appear-active {
+  position:absolute;
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+
+}
 
     </style>
 

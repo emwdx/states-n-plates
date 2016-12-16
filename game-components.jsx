@@ -57,11 +57,11 @@ else{
 
   if(!this.state.showAnswers){
 
-    var visibleButton = <button className = "btn btn-primary " onClick = {this.toggleAnswers}>Check Answers!</button>
+    var visibleButton = <button className = "btn btn-primary " onClick = {this.toggleAnswers}>Check <span className = "hidden-xs" >Answers</span>!</button>
   }
   else{
 
-    var visibleButton = <button className = "btn btn-primary " onClick = {this.showNextStates}>Next States</button>
+    var visibleButton = <button className = "btn btn-primary " onClick = {this.showNextStates}>Next<span className = "hidden-xs" > States</span></button>
 
   }
   stateImages = (
