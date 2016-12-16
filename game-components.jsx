@@ -19,14 +19,14 @@ render:function(){
   var stateTargets = [];
 
   var component = this;
-
+  var awaitingGuesses = this.props.currentStateList;
   this.props.currentTargetList.map(function(e,i){
 
 
   stateTargets.push(
 
   <DroppableTarget stateInput = {e}
-  key = {i} showAnswersOnDrag = {false} changeStateData = {component.changeStateData} >
+  key = {i} showAnswersOnDrag = {false} changeStateData = {component.changeStateData} stateList = {awaitingGuesses}>
 
   </DroppableTarget>
 
@@ -44,7 +44,7 @@ render:function(){
     stateImages.push(
     <div className = "row" key = {i}>
     <div className = "col-md-12 col-xs-12 ">
-    <StateImageContainer stateObject = {e}  />
+    <StateImageContainer stateObject = {e} changeStateData = {component.changeStateData} stateList = {awaitingGuesses}/>
 
     </div>
     </div>

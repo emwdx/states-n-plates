@@ -69,12 +69,13 @@ var StatesImageContainer = React.createClass({
     var imageComponents = [];
     var removeState = this.props.removeState;
 
+    var component = this;
 
     stateList.map(function(item,index){
 
     imageComponents.push(
 
-    <StateImageContainer stateObject = {item} key = {index} removeState = {removeState}/>
+    <StateImageContainer stateObject = {item} key = {index} removeState = {removeState} changeStateData = {component.props.changeStateData} stateList = {stateList}/>
 
 
   )
@@ -105,16 +106,33 @@ var StateImageContainer = React.createClass({
 render:function(){
   var isDragging = this.props.isDragging;
   var connectDragSource = this.props.connectDragSource;
+  var isSelected = this.props.stateObject.isTouchSelected;
 
+
+  if(isSelected){var imgClass = "img-responsive stateImage center-block tapSelected"}
+  else{var imgClass = "img-responsive stateImage center-block"}
 
 return connectDragSource(
   <div className = "row stateImageContainer" style={(isDragging)?
-    {opacity:0.1}:{opacity : 1}} >
+    {opacity:0.1,border:'0px'}:{opacity : 1}} >
   <div className = "col-md-12 col-xs-12 bordered " >
-    <img className = "img-responsive stateImage center-block" src = {this.props.stateObject.imageURL}/>
+    <img className = {imgClass} src = {this.props.stateObject.imageURL} onTouchEnd={this.makeStateActive}/>
 </div>
 </div>
   );
+},
+makeStateActive:function(e){
+var states = this.props.stateList;
+var component = this;
+
+states.forEach(function(s){
+
+component.props.changeStateData(s.stateIndex,{isTouchSelected:false})
+
+});
+this.props.changeStateData(component.props.stateObject.stateIndex,{isTouchSelected:true});
+
+
 }
 
 

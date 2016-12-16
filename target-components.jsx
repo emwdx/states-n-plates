@@ -65,10 +65,10 @@ else{
 
 
     <div className = "row">
-    <div className = "col-md-4 col-xs-4 text-right">
+    <div className = "col-md-4 col-xs-3 text-right">
     {arrowDiv}
     </div>
-    <div className = "col-md-4 col-xs-8">
+    <div className = "col-md-4 col-xs-9">
     <div className = "center-block">
 
 
@@ -113,10 +113,10 @@ var DroppableTarget = React.createClass({
 
     }
     return connectDropTarget(
-    <div className = "col-xs-12 col-md-12">
+    <div className = "col-xs-12 col-md-12" onTouchEnd={this.tapTarget}>
 
     <div className = {hoverClass}>
-    <StateTargetContainer imageURL = {displayImage} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex} changeAnswers={!this.props.stateInput.showAnswers} undoGuess={this.undoGuess} fullImageURL = {this.props.stateInput.fullImageURL}> </StateTargetContainer>
+    <StateTargetContainer imageURL = {displayImage} displayName={this.props.stateInput.stateDisplayName} isCorrect = {this.state.correctlyMatched}  showAnswers = {this.props.stateInput.showAnswers} key = {this.props.stateInput.stateIndex} changeAnswers={!this.props.stateInput.showAnswers} undoGuess={this.undoGuess}  fullImageURL = {this.props.stateInput.fullImageURL} > </StateTargetContainer>
 
     </div>
 
@@ -130,8 +130,7 @@ var DroppableTarget = React.createClass({
   componentDidMount:function(){
     var component = this;
 
-  }
-  ,
+  },
   canDropState:function(){
 
     if(this.props.stateInput.hasBeenDroppedOnto){return false};
@@ -143,6 +142,46 @@ var DroppableTarget = React.createClass({
     this.props.changeStateData(this.state.droppedStateIndex,{isCorrect:false,hasBeenDropped:false});
     this.props.changeStateData(this.props.stateInput.stateIndex,{isCorrect:false,hasBeenDroppedOnto:false,draggedStateImageURL:null});
     this.setState({draggedImageURL:null,droppedStateIndex:null})
+
+  },
+  tapTarget:function(){
+
+    var selectedGuess = _.filter(this.props.stateList,function(state){ return state.isTouchSelected});
+
+    if(selectedGuess.length>0){
+
+        var item = selectedGuess[0];
+        var droppedOnto = this.props.stateInput.stateIndex;
+        var component = this;
+        component.setState({draggedStateImageURL:item.imageURL,draggedStateImageFullURL:item.fullImageURL,droppedStateIndex:item.stateIndex})
+        if(item.stateDisplayName==this.props.stateInput.stateDisplayName){
+          component.setState({correctlyMatched:true,showAnswers:this.props.stateInput.showAnswers});
+
+
+        }
+        else{
+
+          component.setState({correctlyMatched:false,showAnswers:this.props.stateInput.showAnswers});
+
+        }
+
+        component.props.changeStateData(item.stateIndex,{isCorrect:(item.stateDisplayName==this.props.stateInput.stateDisplayName),hasBeenDropped:true});
+
+        component.props.changeStateData(droppedOnto,{hasBeenDroppedOnto:true,draggedStateImageURL:item.imageURL,draggedStateImageFullURL:item.fullImageURL})
+        //console.log(props.stateInput.stateIndex);
+
+        var states = this.props.stateList;
+        var component = this;
+
+        states.forEach(function(s){
+
+        component.props.changeStateData(s.stateIndex,{isTouchSelected:false})
+
+        });
+
+    }
+
+
 
   }
 
