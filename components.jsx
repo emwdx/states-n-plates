@@ -66,7 +66,6 @@ var newApp = (
 
 
   <GameView currentStateList = {this.state.visibleStates} currentTargetList = {this.state.shuffledStates} parentState = {this.state} changeStateData = {this.changeStateData} changeParentState = {this.changeParentState} nextStates={this.nextStates} ></GameView>
-  <hr/>
 
 
 </div>
