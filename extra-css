@@ -1,0 +1,61 @@
+.example-enter {
+
+  position:absolute;
+  height: auto;
+}
+
+.example-leave {
+
+  position:absolute;
+  height: auto;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+
+
+
+}
+
+.example-leave {
+  opacity: 1;
+
+
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 1000ms ease-in ;
+
+
+}
+
+.example-appear {
+  opacity: 0.01;
+
+}
+
+.img-responsive.example-appear.example-appear-active {
+
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+  position:absolute;
+  height: auto;
+
+}
+
+
+.bg-success{
+opacity: 1;
+   transition: background-color 0.75s ease-in-out;
+   -moz-transition: background-color  0.75s ease-in-out;
+   -webkit-transition: background-color  0.75s ease-in-out;
+ }
+
+ .bg-danger{
+ opacity: 1;
+    transition: background-color 1s ease-in-out;
+    -moz-transition: background-color  1s ease-in-out;
+    -webkit-transition: background-color  1s ease-in-out;
+  }

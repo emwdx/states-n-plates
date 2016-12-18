@@ -35,13 +35,13 @@ else{
 
   var imageDiv = (this.props.imageURL!=null)?
   (
-    <div >
+    <div className = "clearfix">
     <ReactCSSTransitionGroup
           transitionName="example"
 
 
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={1000}>
+          transitionEnterTimeout={5600}
+          transitionLeaveTimeout={5600}>
 
         <img className = "img-responsive" src = {currentImageURL} key={currentImageURL} />
 
@@ -68,7 +68,7 @@ else{
     <div className = "col-md-4 col-xs-3 text-right">
     {arrowDiv}
     </div>
-    <div className = "col-md-4 col-xs-9">
+    <div className = "col-md-4 col-sm-9 col-xs-9">
     <div className = "center-block">
 
 

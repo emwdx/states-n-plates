@@ -73,60 +73,61 @@ max-height:100px;
 
 }
 
-
-
-.bg-success{
-opacity: 1;
-   transition: background-color 0.75s ease-in-out;
-   -moz-transition: background-color  0.75s ease-in-out;
-   -webkit-transition: background-color  0.75s ease-in-out;
- }
-
- .bg-danger{
- opacity: 1;
-    transition: background-color 1s ease-in-out;
-    -moz-transition: background-color  1s ease-in-out;
-    -webkit-transition: background-color  1s ease-in-out;
-  }
-
 .example-enter {
-  opacity: 0.01;
+
   position:absolute;
   height: auto;
 }
 
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-
-
-
-}
-
 .example-leave {
-  opacity: 1;
 
 
 }
 
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 1000ms ease-in;
 
-
-}
-
-.example-appear {
-  opacity: 0.01;
+.example-leave-active {
+  animation-duration: 0.8s;
+  animation-name: leave;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 
 }
 
-.img-responsive.example-appear.example-appear-active {
+@keyframes leave {
+  from {
+    opacity:1;
 
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
 
+  }
+
+  to {
+    opacity:.01;
+
+  }
 }
+
+
+
+.example-enter-active{
+    animation-duration: 0.8s;
+    animation-name: enter;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  @keyframes enter {
+    from {
+      opacity:0.01;
+
+
+    }
+
+    to {
+      opacity:1;
+
+    }
+  }
+
+
 
 body{
 
