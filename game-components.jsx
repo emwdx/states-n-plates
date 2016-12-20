@@ -189,7 +189,7 @@ return(
 <div className ="row">
 <div className = " col-md-12 text-center">
 
-{showScore}
+<h3>Correctly Matched: <span className = "text-success">{this.props.score}</span></h3>
 
 </div>
 </div>
