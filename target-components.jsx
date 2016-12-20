@@ -18,13 +18,13 @@ var StateTargetContainer = React.createClass({
 if(this.props.showAnswers==true){
 
   var correctClass = (this.props.isCorrect)?"bg-success bordered":"bg-danger bordered";
-  var displayMatchStatus = "col-md-12 "+ correctClass;
+  var displayMatchStatus = "col-md-12 col-sm-12 col-xs-12 "+ correctClass;
   var displayMatchIcon = (this.props.isCorrect)? "glyphicon glyphicon-ok": "glyphicon glyphicon-remove";
   var currentImageURL = this.props.imageURL;
 }
 
 else{
-  var displayMatchStatus = "col-md-12 bordered"
+  var displayMatchStatus = "col-md-12 col-sm-12 col-xs-12 bordered"
   var displayMatchIcon = ""
   var currentImageURL = this.props.imageURL;
 
@@ -35,13 +35,13 @@ else{
 
   var imageDiv = (this.props.imageURL!=null)?
   (
-    <div className = "clearfix">
+    <div className = "clearfix ">
     <ReactCSSTransitionGroup
           transitionName="example"
 
 
-          transitionEnterTimeout={5600}
-          transitionLeaveTimeout={5600}>
+          transitionEnterTimeout={560000}
+          transitionLeaveTimeout={560000}>
 
         <img className = "img-responsive" src = {currentImageURL} key={currentImageURL} />
 
@@ -148,7 +148,7 @@ var DroppableTarget = React.createClass({
 
     var selectedGuess = _.filter(this.props.stateList,function(state){ return state.isTouchSelected});
 
-    if(selectedGuess.length>0){
+    if(selectedGuess.length>0 & !this.props.stateInput.hasBeenDroppedOnto){
 
         var item = selectedGuess[0];
         var droppedOnto = this.props.stateInput.stateIndex;

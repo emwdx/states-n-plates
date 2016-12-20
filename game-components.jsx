@@ -183,10 +183,14 @@ var ScoreBoard = React.createClass({
 
 render:function(){
 
+var showScore = (this.props.score>0)?(<h3>Correctly Matched: <span className = "text-success">{this.props.score}</span></h3>):"";
+
 return(
 <div className ="row">
 <div className = " col-md-12 text-center">
-  <h3>States Correct: <span className = "text-success">{this.props.score}</span></h3>
+
+{showScore}
+
 </div>
 </div>
 )
